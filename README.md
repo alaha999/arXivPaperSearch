@@ -14,3 +14,6 @@ Command: ```python3 arXivToday.py```
 - **What this code expect from you?**
    + The only user input is the *url*
    + default is https://arxiv.org/list/hep-ex/pastweek?show=500: for recent submission- last one week from the current date 
+
+As an example,
+![exampleImage](./arXivTodayExampleImage.png)
