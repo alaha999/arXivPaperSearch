@@ -5,7 +5,7 @@
 ##################################################
 
 import subprocess
-import sys
+import os,sys
 import time,datetime
 import argparse
 
@@ -57,7 +57,7 @@ monthdict={"Jan":year+"01","Feb":year+"02","Mar":year+"03","Apr":year+"04","May"
 hepex="https://arxiv.org/list/hep-ex/"
 if(TimePeriod==None):url=hepex+"pastweek?show=500"; monthStr=Month                         #pastweek #default
 elif(TimePeriod=="weekly"):url=hepex+"pastweek?show=500"; monthStr=Month                   #pastweek
-elif(TimePeriod=="monthly"):url=hepex+datetime.datetime.now().strftime("%y%m")+"?show=1000"; mothStr=Month #monthly
+elif(TimePeriod=="monthly"):url=hepex+datetime.datetime.now().strftime("%y%m")+"?show=1000"; monthStr=Month #monthly
 else:url=hepex+monthdict[TimePeriod]+"?show=1000"; monthStr=TimePeriod                     #customized month and year
 
 #print(url)
@@ -77,6 +77,30 @@ dateString=datetime.datetime.now().strftime("%d"+" "+"%b"+" "+"%Y")
 
 #Define a function to show today's paper
 info =[]
+def htmlpage(paperinfo):
+    style="<head>\n<style>\ntable {\nfont-family: arial, sans-serif;\nborder-collapse: collapse;\nwidth: 100%;\n    }\ntd, th {\nborder: 1px solid #757575;\ntext-align: center;\npadding: 12px;\n}\ntr:nth-child(even) {\nbackground-color: #FFFDE7;\n}\n</style>\n</head>\n"
+    
+    file=open("index.html","w")    
+    file.writelines(["<!DOCTYPE html>\n","<html>\n"])
+    file.write(style)
+    file.write("<body>\n")
+    file.write(" <table>\n")
+    file.write("  <tr>\n")
+    file.write("   <th>Index</th>\n")
+    file.write("   <th>arXivLink</th>\n")
+    file.write("   <th>Paper</th>\n</tr>\n")
+    
+    for item in paperinfo:
+        file.write(" <tr>\n")
+        file.write("  <td>"+item[0]+"</td>\n")
+        file.write("  <td><a href=\""+item[1]+"\">"+item[1]+"</a></td>\n")
+        file.write("  <td>"+item[2]+"</td>\n")
+        file.write("</tr>\n")
+        
+    file.write("</table\n>")
+    file.write("</body>\n")
+    file.write("</html>\n")
+
 def CheckPaper():
     list_ByarXivLink=text.split("Title: ")
     ## Quick Debug
@@ -101,6 +125,8 @@ def CheckPaper():
     #print        
     colname = ['Index','arXiv Link','Paper']
     print(tabulate(info,headers=colname,tablefmt='fancy_grid',numalign='center'))
+    htmlpage(info)
+    os.system("firefox index.html")
     info.clear()
 
 #title
