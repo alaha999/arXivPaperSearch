@@ -1,4 +1,4 @@
-# CodesForFun
+# arXivPaperSearch
 ### arXivToday.py
 This piece of python code should dump all the hep-ex (or of your field) papers appeared last week on your terminal like the following,
 
@@ -17,3 +17,8 @@ Command: ```python3 arXivToday.py```
 
 As an example,
 ![exampleImage](./arXivTodayExampleImage.png)
+
+## HTML Page for browsing with the list of papers
+Added a html page maker fundtion which should display the list of papers in a page in your firefox browser. Click on the link and go directly to the arXiv for more details! For example,
+![Weekly Paper List html page](./htmlpage.png)
+
